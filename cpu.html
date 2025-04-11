@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CPU</title>
+	<script>
+		async function fetchCpuLoad() {
+			const response = await fetch('cpu_load.php');
+			const data = await response.json();
+			document.getElementById('cpu-load').innerText = Load 1 min: ${data.load1}, Load 5 min: ${data.load5}, Load 15 min: ${data.load15}, Cores: ${data.cores};
+		}
+
+		setInterval(fetchCpuLoad, 1000);
+	</script>
+</head>
+<body>
+	<h1>CPU load monitor</h1>
+	<div id="cpu-load"></div>
+</body>
