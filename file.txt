@@ -1,0 +1,35 @@
+<?php
+// Получаем параметры из URL
+$image = $_GET['image'];
+$format = $_GET['format'];
+
+// Путь к изображению
+$imagePath = __DIR__ . '/' . $image;
+
+// Проверяем, существует ли файл
+if (!file_exists($imagePath)) {
+    header("HTTP/1.0 404 Not Found");
+    exit("Image not found.");
+}
+
+// Обработка JPG изображений
+if ($format === 'jpg') {
+    // Загружаем изображение
+    $img = imagecreatefromjpeg($imagePath);
+    
+    // Переворачиваем изображение
+    $img = imagerotate($img, 180, 0);
+    
+    // Отправляем заголовок и выводим изображение
+    header('Content-Type: image/jpeg');
+    imagejpeg($img);
+    imagedestroy($img);
+} elseif ($format === 'png') {
+    // Для PNG просто отправляем его как есть
+    header('Content-Type: image/png');
+    readfile($imagePath);
+} else {
+    header("HTTP/1.0 400 Bad Request");
+    exit("Invalid format.");
+}
+?>
