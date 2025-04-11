@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CPU</title>
+	<script>
+		const cpuElement = document.getElementById('cpu-value');
+		const eventSource = new EventSource('/cpu-stream');
+
+		eventSource.onmessage = (event) => {
+			const data = JSON.parse(event.data);
+			cpuElement.textContent = data.cpu_load;
+		};
+	</script>
+</head>
+<body>
+	<h1>CPU load monitor</h1>
+	<div id="cpu">Loading:<span id="cpu-value">0%</span></div>
+</body>

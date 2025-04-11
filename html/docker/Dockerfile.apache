@@ -1,0 +1,7 @@
+FROM httpd:alpine
+
+COPY httpd.conf /usr/local/apache2/conf/httpd.conf
+
+#COPY ./api /usr/local/apache2/htdocs/api/
+
+EXPOSE 80
